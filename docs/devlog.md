@@ -22,3 +22,8 @@
   constraints. This is the honest state and the first question a medical director will ask.
 - Next: `src/closure` first, with parity tests against the reference's outputs on the two
   fixtures, before any window exists.
+- Verified the two fixtures against the reference (`python C:/REGISTRAR/floor/closure.py`):
+  TR-4118 serology_drawn latest 22:15 (−1d), slack −85 BREACHED at now −20, chain of 7 with the
+  cumulative times as written in BLUEPRINT §7; the transport case INFEASIBLE, short by 30.
+  The reference walks the cycle `cross_clamp → implant → arrival → organ_out → cross_clamp`;
+  the fixture's `expected.cycle` now matches that order, since parity is by equality.

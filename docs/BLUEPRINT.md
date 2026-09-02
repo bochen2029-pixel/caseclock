@@ -57,7 +57,7 @@ asserted by equality. Hand-checked expectations for the two shipped fixtures:
 | fixture | expectation |
 |---|---|
 | `tr-4118.synthetic.json` | `serology_drawn` latest **−105 = 22:15 (−1d)**; `serology_resulted` 255; `match_run` 255; `primary_acceptance` 435; `or_scheduled` 435; `incision` 555; `cross_clamp` window [360, 600]; chain for `serology_drawn` has 7 hops; with `now = −20` (23:40 the previous evening) slack is −85, BREACHED |
-| `infeasible-transport.synthetic.json` | inconsistent; cycle through `cross_clamp → organ_out → arrival → implant → cross_clamp`; short by **30** minutes |
+| `infeasible-transport.synthetic.json` | inconsistent; cycle as the reference walks it, `cross_clamp → implant → arrival → organ_out → cross_clamp`; short by **30** minutes |
 
 A 60-event case closes in well under a millisecond; a recompute happens on every fact.
 

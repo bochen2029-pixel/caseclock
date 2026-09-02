@@ -16,7 +16,7 @@
 
   "expected": {
     "consistent": false,
-    "cycle": ["cross_clamp", "organ_out", "arrival", "implant", "cross_clamp"],
+    "cycle": ["cross_clamp", "implant", "arrival", "organ_out", "cross_clamp"],
     "short_by": 30
   }
 }

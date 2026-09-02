@@ -1,0 +1,22 @@
+{
+  "id": "infeasible-transport",
+  "synthetic": true,
+  "note": "SYNTHETIC. No real donor data; every duration is illustrative and none is a clinical or regulatory claim — the cold-ischemia figure in particular is a placeholder, not a tolerance. Adapted from REGISTRAR's fixtures/cases/infeasible-transport.json (MIT). A case that cannot be met, where no single constraint is unreasonable: cross-clamp is pinned, the transport leg plus the receiving centre's preparation do not fit inside the budget. The closure detects a negative cycle; a flat timer list detects nothing, because no timer has expired.",
+
+  "reference": "midnight of the recovery day",
+  "watch": ["cross_clamp", "organ_out", "arrival", "implant"],
+
+  "constraints": [
+    { "kind": "at", "event": "cross_clamp", "minutes": 480, "label": "cross-clamp occurred 08:00", "layer": "L4" },
+    { "kind": "at_least", "later": "organ_out", "earlier": "cross_clamp", "minutes": 60, "label": "recovery to packaged", "layer": "L1" },
+    { "kind": "at_least", "later": "arrival", "earlier": "organ_out", "minutes": 300, "label": "transport, door to door", "layer": "L3" },
+    { "kind": "at_least", "later": "implant", "earlier": "arrival", "minutes": 150, "label": "accepting-centre preparation to incision", "layer": "L3" },
+    { "kind": "at_most", "later": "implant", "earlier": "cross_clamp", "minutes": 480, "label": "ISCHEMIA BUDGET — ILLUSTRATIVE PLACEHOLDER, NOT A TOLERANCE", "layer": "L1" }
+  ],
+
+  "expected": {
+    "consistent": false,
+    "cycle": ["cross_clamp", "organ_out", "arrival", "implant", "cross_clamp"],
+    "short_by": 30
+  }
+}

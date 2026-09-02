@@ -1,0 +1,9 @@
+*.obj
+*.res
+*.exe
+*.pdb
+*.ilk
+*.log
+caseclock.ini
+*.tape
+*.tape.jsonl

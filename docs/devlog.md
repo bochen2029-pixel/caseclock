@@ -1,5 +1,23 @@
 # caseclock — development log
 
+## 2026-09-03 · published: the repository, the release, the tools page
+
+- `github.com/bochen2029-pixel/caseclock`, public, MIT, topics set, homepage `opnaorta.ai/tools`.
+  Release `v0.1.0` carries `caseclock.exe`, `caseclockw.exe`, `caseclock-0.1.0-win64.zip` (the exes
+  plus README, LICENSE and the synthetic cases) and `SHA256SUMS.txt` — the same shape facet and
+  vramtop ship.
+- The tools page gains TOOL 03. `C:\Websites\aorta-site\_upload\tools.html` edited in place, backed
+  up first to `_upload/_backups/2026-09-03_0031_pre-caseclock-tool-03/` (sha256 `64122ae12d47eaad`,
+  which matches the 2026-09-02 deploy log's hash for the live file). Not deployed; that is the
+  operator's call.
+- Three assets, all real output: `assets/caseclock-strip.png` is `caseclock --shot` at 75 % width
+  (2880 × 90, so the right-hand status line fits); `assets/caseclock-pinned.png` is the operator's
+  screen capture cropped free of the taskbar, the strip docked over a window; `assets/caseclock-
+  signout.png` sets the bytes `--replay --speed 0` printed in Consolas. Nothing on the page is a
+  mock, and each capture is labelled SYNTHETIC · NO PHI.
+- The page's accent for caseclock is violet `#a78bfa`, unused by facet (blue) or vramtop (green),
+  and it is the strip's own colour for an infeasible plan.
+
 ## 2026-09-03 · 0.1.0: the floor, the tape, the sign-out, the strip
 
 Built in one session from the blueprint: `src/` (ten translation units, ~3,900 lines), `build.bat`

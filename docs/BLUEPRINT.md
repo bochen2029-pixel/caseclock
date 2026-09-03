@@ -102,9 +102,13 @@ REGISTRAR's `core/tape.py` format, so any REGISTRAR or VIGIL fold reads it:
 {"seq":0,"at":-20,"kind":"note","body":{"text":"SYNTHETIC..."},"prev":"000…0","digest":"…"}
 ```
 
-`digest = SHA-256(canonical(seq, at, kind, body, prev))`; `prev` is the previous digest; the
-first row's `prev` is 64 zeros. Canonical form: the reference's `json.dumps(sort_keys=True,
-separators=(",", ":"))`; the C++ writer produces the identical bytes, and `--selftest` verifies a
+`digest = BLAKE2b-256(prev · "\0" · canonical({seq, kind, at, body}))`, hex; `prev` is the previous
+digest and stays outside the payload; the first row's `prev` is 64 zeros. This is what the
+reference `core/tape.py` does (`hashlib.blake2b(digest_size=32)`); an earlier draft of this
+section said SHA-256, which does not produce the reference's bytes. The BLAKE2b is the
+repository's own transcription of RFC 7693 (`src/hash.cpp`), checked against `hashlib`'s vectors.
+Canonical form: the reference's `json.dumps(sort_keys=True, separators=(",", ":"),
+ensure_ascii=False)`; the C++ writer produces the identical bytes, and `--selftest` verifies a
 tape written by the tool against a tape written by the reference for the same rows.
 
 caseclock's row kinds:
@@ -142,6 +146,18 @@ Gear zero only. The tool speaks when a rule says so, never otherwise, and writes
 
 The line the strip shows is composed from the tape row, never free text:
 `TR-4118 · serology_drawn by 22:15 (−1d) · breached 85 min · chain 7 · Ctrl+E`.
+
+**As built (0.1.0), made precise.** A deadline speaks once per lead and once on breach; the most
+urgent unsaid reason wins (breach > due > lead_15 > lead_60), then the earlier deadline, then the
+name; a bound that moves starts its leads over. Timer-driven lines obey the one-a-minute rule (a
+second candidate in the same minute is a `held` row, reason `rate`; a candidate behind one said
+this minute is `held`, reason `next_due`, and is said the next minute). After every closure that
+says nothing, one `held` row (`lead_not_reached`) names the nearest deadline, so the tape shows the
+tool looked. `infeasible` and `withdrawn` lines are event-driven, a human just typed the fact, and
+are not rate-limited; infeasible is said once per distinct cycle. An entered event is no longer a
+deadline: its bound is withdrawn, and if it had been said, the withdrawal is said. At an hour mark
+with nothing due within the first lead, a `silence` row. All of it is a fold over the tape
+(`fold_clock`), so a reopened tape resumes exactly and a replay reproduces the rows.
 
 ## §6 · The strip
 
@@ -253,15 +269,18 @@ deadline was derived.
 | file | owns |
 |---|---|
 | `src/closure.h/.cpp` | the STN, the closure, `binding_path`, `negative_cycle`, `hhmm`; bit-identical to the reference |
-| `src/casefile.h/.cpp` | the JSON case and rule-pack reader (a small strict parser, as facet's), facts, layers, hashes |
-| `src/tape.h/.cpp` | the append-only chain, canonical JSON, SHA-256 via `bcrypt`, DPAPI at rest, verification |
-| `src/clock.h/.cpp` | the speaking rules, lead times, rate, silence rows, withdrawal |
+| `src/casefile.h/.cpp` | the case and rule-pack reader, facts, layers, the reference's `report()` text |
+| `src/json.h/.cpp` | a strict JSON value, parser, and the reference's canonical writer |
+| `src/hash.h/.cpp` | BLAKE2b-256 from RFC 7693 (the chain), SHA-256 via `bcrypt` (files, rule sets, sign-outs) |
+| `src/tape.h/.cpp` | the append-only chain, verification, DPAPI at rest (one protected line per row) |
+| `src/clock.h/.cpp` | the case at run time: facts, closure, derived/withdrawn rows, the speaking rules, the fold |
 | `src/signout.h/.cpp` | the sign-out renderer, deterministic |
 | `src/strip.cpp` | the window: strip, panes, keys, tray, DPI, the test seam |
-| `src/caseclock.cpp` | console modes: `--signout --explain --json --replay --mcp --spool --about --selftest` |
+| `src/caseclock.cpp` | console modes: `--report --signout --explain --fact --json --replay --export --verify --mcp --spool --about --selftest` |
+| `src/sys.h/.cpp` | the OS: files, paths, DPAPI, the wall clock, the exe's own import table |
 | `src/app_util.h` | options and formatting, from facet |
 | `floor/cases/` | synthetic cases, each with a `README` line |
-| `tests/` | the driver (C++), expected outputs from the reference for parity |
+| `tests/` | `reference_dump.py` records the reference's outputs into `expected/`; `drive.py` drives the strip's seam |
 
 `--selftest`: closure parity on every fixture (D, nxt, windows, chains, rendered lines);
 tape canonical bytes equal to the reference's for the same rows; chain verification detects a

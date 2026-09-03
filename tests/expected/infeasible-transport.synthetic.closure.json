@@ -1,0 +1,258 @@
+{
+ "fixture": "infeasible-transport.synthetic.json",
+ "names": [
+  "T0",
+  "cross_clamp",
+  "organ_out",
+  "arrival",
+  "implant"
+ ],
+ "constraints": [
+  {
+   "later": "cross_clamp",
+   "earlier": "T0",
+   "weight": 480,
+   "label": "cross-clamp occurred 08:00",
+   "layer": "L4",
+   "render": "cross_clamp - T0 <= 480  [L4]  cross-clamp occurred 08:00"
+  },
+  {
+   "later": "T0",
+   "earlier": "cross_clamp",
+   "weight": -480,
+   "label": "cross-clamp occurred 08:00",
+   "layer": "L4",
+   "render": "T0 - cross_clamp <= -480  [L4]  cross-clamp occurred 08:00"
+  },
+  {
+   "later": "cross_clamp",
+   "earlier": "organ_out",
+   "weight": -60,
+   "label": "recovery to packaged",
+   "layer": "L1",
+   "render": "cross_clamp - organ_out <= -60  [L1]  recovery to packaged"
+  },
+  {
+   "later": "organ_out",
+   "earlier": "arrival",
+   "weight": -300,
+   "label": "transport, door to door",
+   "layer": "L3",
+   "render": "organ_out - arrival <= -300  [L3]  transport, door to door"
+  },
+  {
+   "later": "arrival",
+   "earlier": "implant",
+   "weight": -150,
+   "label": "accepting-centre preparation to incision",
+   "layer": "L3",
+   "render": "arrival - implant <= -150  [L3]  accepting-centre preparation to incision"
+  },
+  {
+   "later": "implant",
+   "earlier": "cross_clamp",
+   "weight": 480,
+   "label": "ISCHEMIA BUDGET — ILLUSTRATIVE PLACEHOLDER, NOT A TOLERANCE",
+   "layer": "L1",
+   "render": "implant - cross_clamp <= 480  [L1]  ISCHEMIA BUDGET — ILLUSTRATIVE PLACEHOLDER, NOT A TOLERANCE"
+  }
+ ],
+ "D": [
+  [
+   -30,
+   450,
+   510,
+   810,
+   930
+  ],
+  [
+   -510,
+   -30,
+   30,
+   330,
+   450
+  ],
+  [
+   -570,
+   -90,
+   -30,
+   270,
+   390
+  ],
+  [
+   -870,
+   -390,
+   -330,
+   -30,
+   90
+  ],
+  [
+   -1020,
+   -540,
+   -480,
+   -180,
+   -60
+  ]
+ ],
+ "nxt": [
+  [
+   1,
+   1,
+   1,
+   1,
+   1
+  ],
+  [
+   4,
+   4,
+   4,
+   4,
+   4
+  ],
+  [
+   1,
+   1,
+   1,
+   1,
+   1
+  ],
+  [
+   2,
+   2,
+   2,
+   2,
+   2
+  ],
+  [
+   3,
+   3,
+   3,
+   3,
+   3
+  ]
+ ],
+ "origin": [
+  [
+   0,
+   1,
+   0
+  ],
+  [
+   1,
+   0,
+   1
+  ],
+  [
+   1,
+   4,
+   5
+  ],
+  [
+   2,
+   1,
+   2
+  ],
+  [
+   3,
+   2,
+   3
+  ],
+  [
+   4,
+   3,
+   4
+  ]
+ ],
+ "consistent": false,
+ "windows": {
+  "T0": [
+   30,
+   -30
+  ],
+  "cross_clamp": [
+   510,
+   450
+  ],
+  "organ_out": [
+   570,
+   510
+  ],
+  "arrival": [
+   870,
+   810
+  ],
+  "implant": [
+   1020,
+   930
+  ]
+ },
+ "binding_path": {
+  "T0": [],
+  "cross_clamp": [
+   "cross_clamp - T0 <= 480  [L4]  cross-clamp occurred 08:00"
+  ],
+  "organ_out": [
+   "cross_clamp - T0 <= 480  [L4]  cross-clamp occurred 08:00",
+   "implant - cross_clamp <= 480  [L1]  ISCHEMIA BUDGET — ILLUSTRATIVE PLACEHOLDER, NOT A TOLERANCE",
+   "arrival - implant <= -150  [L3]  accepting-centre preparation to incision",
+   "organ_out - arrival <= -300  [L3]  transport, door to door"
+  ],
+  "arrival": [
+   "cross_clamp - T0 <= 480  [L4]  cross-clamp occurred 08:00",
+   "implant - cross_clamp <= 480  [L1]  ISCHEMIA BUDGET — ILLUSTRATIVE PLACEHOLDER, NOT A TOLERANCE",
+   "arrival - implant <= -150  [L3]  accepting-centre preparation to incision"
+  ],
+  "implant": [
+   "cross_clamp - T0 <= 480  [L4]  cross-clamp occurred 08:00",
+   "implant - cross_clamp <= 480  [L1]  ISCHEMIA BUDGET — ILLUSTRATIVE PLACEHOLDER, NOT A TOLERANCE"
+  ]
+ },
+ "explain": {
+  "T0": "T0: latest 23:30 (-1d)\n  because —",
+  "cross_clamp": "cross_clamp: latest 07:30\n  because —\n    cross_clamp - T0 <= 480  [L4]  cross-clamp occurred 08:00      cumulative 08:00",
+  "organ_out": "organ_out: latest 08:30\n  because —\n    cross_clamp - T0 <= 480  [L4]  cross-clamp occurred 08:00      cumulative 08:00\n    implant - cross_clamp <= 480  [L1]  ISCHEMIA BUDGET — ILLUSTRATIVE PLACEHOLDER, NOT A TOLERANCE cumulative 16:00\n    arrival - implant <= -150  [L3]  accepting-centre preparation to incision cumulative 13:30\n    organ_out - arrival <= -300  [L3]  transport, door to door     cumulative 08:30",
+  "arrival": "arrival: latest 13:30\n  because —\n    cross_clamp - T0 <= 480  [L4]  cross-clamp occurred 08:00      cumulative 08:00\n    implant - cross_clamp <= 480  [L1]  ISCHEMIA BUDGET — ILLUSTRATIVE PLACEHOLDER, NOT A TOLERANCE cumulative 16:00\n    arrival - implant <= -150  [L3]  accepting-centre preparation to incision cumulative 13:30",
+  "implant": "implant: latest 15:30\n  because —\n    cross_clamp - T0 <= 480  [L4]  cross-clamp occurred 08:00      cumulative 08:00\n    implant - cross_clamp <= 480  [L1]  ISCHEMIA BUDGET — ILLUSTRATIVE PLACEHOLDER, NOT A TOLERANCE cumulative 16:00"
+ },
+ "negative_cycle": [
+  "cross_clamp",
+  "implant",
+  "arrival",
+  "organ_out",
+  "cross_clamp"
+ ],
+ "cycle_constraints": [
+  "implant - cross_clamp <= 480  [L1]  ISCHEMIA BUDGET — ILLUSTRATIVE PLACEHOLDER, NOT A TOLERANCE",
+  "arrival - implant <= -150  [L3]  accepting-centre preparation to incision",
+  "organ_out - arrival <= -300  [L3]  transport, door to door",
+  "cross_clamp - organ_out <= -60  [L1]  recovery to packaged"
+ ],
+ "short_by": 30,
+ "report": "case: infeasible-transport\n      SYNTHETIC. No real donor data; every duration is illustrative and none is a clinical or regulatory claim — the cold-ischemia figure in particular is a placeholder, not a tolerance. Adapted from REGISTRAR's fixtures/cases/infeasible-transport.json (MIT). A case that cannot be met, where no single constraint is unreasonable: cross-clamp is pinned, the transport leg plus the receiving centre's preparation do not fit inside the budget. The closure detects a negative cycle; a flat timer list detects nothing, because no timer has expired.\n\nINFEASIBLE — this plan cannot be met.\n  cross_clamp -> implant -> arrival -> organ_out -> cross_clamp\n  these constraints cannot all hold —\n    implant - cross_clamp <= 480  [L1]  ISCHEMIA BUDGET — ILLUSTRATIVE PLACEHOLDER, NOT A TOLERANCE running +480m\n    arrival - implant <= -150  [L3]  accepting-centre preparation to incision running +330m\n    organ_out - arrival <= -300  [L3]  transport, door to door     running +30m\n    cross_clamp - organ_out <= -60  [L1]  recovery to packaged     running -30m\n                                                                     short by 30m\n",
+ "report_exit": 1,
+ "hhmm": {
+  "0": "00:00",
+  "1": "00:01",
+  "59": "00:59",
+  "60": "01:00",
+  "61": "01:01",
+  "599": "09:59",
+  "600": "10:00",
+  "1439": "23:59",
+  "1440": "00:00 (+1d)",
+  "1441": "00:01 (+1d)",
+  "2880": "00:00 (+2d)",
+  "-1": "23:59 (-1d)",
+  "-105": "22:15 (-1d)",
+  "-1440": "00:00 (-1d)",
+  "-1441": "23:59 (-2d)",
+  "-2881": "23:59 (-3d)",
+  "1061109567": "unbounded",
+  "-1061109567": "unbounded",
+  "530554783": "unbounded",
+  "530554782": "19:42 (+368440d)",
+  "-530554783": "unbounded",
+  "-530554782": "04:18 (-368441d)",
+  "12345678": "09:18 (+8573d)"
+ }
+}

@@ -1,0 +1,138 @@
+{
+ "case_id": "TR-4118",
+ "rows": [
+  [
+   "note",
+   -20,
+   {
+    "text": "SYNTHETIC. No real donor data; every duration is illustrative."
+   }
+  ],
+  [
+   "rules",
+   -20,
+   {
+    "layers": [
+     "L0",
+     "L1"
+    ],
+    "files": {
+     "z.json": "00ff",
+     "a.json": "ab12"
+    },
+    "verified_by": null,
+    "verified_on": null,
+    "lead_minutes": [
+     60,
+     15,
+     0
+    ]
+   }
+  ],
+  [
+   "fact",
+   -20,
+   {
+    "event": "referral_received",
+    "minutes": -600,
+    "by": "J. Alvarez (synthetic)"
+   }
+  ],
+  [
+   "derived",
+   -20,
+   {
+    "event": "serology_drawn",
+    "latest": -105,
+    "earliest": -1061109567,
+    "chain": [
+     "cross_clamp - T0 <= 600  [L2]  donor-hospital OR availability (06:00-10:00) closes",
+     "serology_drawn - serology_resulted <= -360  [L3]  reference-lab turnaround"
+    ],
+    "rules_hash": ""
+   }
+  ],
+  [
+   "said",
+   -20,
+   {
+    "event": "serology_drawn",
+    "latest": -105,
+    "slack": -85,
+    "reason": "breach",
+    "text": "TR-4118 · serology_drawn by 22:15 (-1d) · BREACHED 85 min · chain 7"
+   }
+  ],
+  [
+   "held",
+   -19,
+   {
+    "reason": "rate",
+    "event": "match_run"
+   }
+  ],
+  [
+   "silence",
+   0,
+   {
+    "hour": 0,
+    "open": 6
+   }
+  ],
+  [
+   "withdrawn",
+   5,
+   {
+    "event": "incision",
+    "previous": 555,
+    "cause": {
+     "event": "cross_clamp",
+     "minutes": 480,
+     "seq": 2
+    }
+   }
+  ],
+  [
+   "infeasible",
+   6,
+   {
+    "cycle": [
+     "cross_clamp",
+     "implant",
+     "arrival",
+     "organ_out",
+     "cross_clamp"
+    ],
+    "constraints": [
+     "implant - cross_clamp <= 480  [L1]  ISCHEMIA BUDGET — ILLUSTRATIVE PLACEHOLDER, NOT A TOLERANCE"
+    ],
+    "short_by": 30
+   }
+  ],
+  [
+   "note",
+   7,
+   {
+    "text": "quote \" backslash \\ slash / tab \t nl \n cr \r bs \b ff \f nul \u0000 bell \u0007 del  é 日本 😀",
+    "empty": "",
+    "list": [],
+    "obj": {},
+    "neg": -1,
+    "big": 1061109567,
+    "t": true,
+    "f": false,
+    "n": null
+   }
+  ],
+  [
+   "signout",
+   8,
+   {
+    "by": "J. Alvarez (synthetic)",
+    "hash": "9c1e9c1e9c1e9c1e9c1e9c1e9c1e9c1e9c1e9c1e9c1e9c1e9c1e9c1e9c1e9c1e",
+    "rows": 10,
+    "supersedes": 9
+   }
+  ]
+ ]
+}

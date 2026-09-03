@@ -29,7 +29,7 @@ Row 3 — **everywho** · BUILDING
   the files touched in the last N seconds that facet and everywhere read directly."
 - PLATFORM: Windows
 
-Row 4 — **caseclock** · NEXT
+Row 4 — **caseclock** · BUILDING
 - DOES: "The case clock. Every deadline a donor case implies, derived from the facts already
   entered, counted down on a strip over the record, and written to a tape with the chain of
   constraints that produced it."
@@ -87,7 +87,7 @@ FOR THE AGENT: "An agent that sees the disk pegged retries or waits blind. every
 process and the directory in one line, and everywho --paths hands facet the exact files touched in
 the last ten seconds — the same tape, no translation."
 
-## 4. Section — TOOL 04 · NEXT: caseclock
+## 4. Section — TOOL 04 · BUILDING: caseclock
 
 Title: **caseclock — every deadline the case implies, on a strip over the record.**
 
@@ -102,7 +102,7 @@ exe cannot reach the internet, and the build proves it."
 Badges: WINDOWS · FREE · MIT · KEYBOARD-FIRST · PINS ON TOP · NO AI INSIDE · NO NETWORK STACK · SYNTHETIC
 DEMO, NO PHI
 
-Button: "caseclock on GitHub" — grey, "blueprint; nothing built yet".
+Button: "caseclock on GitHub" — grey, "0.1.0 · --selftest green · not yet shipped".
 
 Capture to draw (two panels, both labelled MOCK · SYNTHETIC):
 Panel A, the strip: a thin dark bar across the bottom of a blurred, unreadable record window, reading

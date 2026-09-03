@@ -35,8 +35,11 @@
   ],
 
   "replay": [
-    { "at": -300, "say": "shift starts 19:00 (-1d): 7 watched events, nothing entered beyond the referral" },
-    { "at": -80,  "say": "22:40 — lead_15 fires for serology_drawn (due 22:15 was already past at load: this replay shows the breach path)" },
+    { "at": -300, "say": "shift starts 19:00 (-1d): 7 watched events, nothing entered beyond the referral; no timer set" },
+    { "at": -165, "say": "21:15 — lead_60: serology_drawn by 22:15 (-1d), derived from seven constraints nobody wrote down together" },
+    { "at": -120, "say": "22:00 — lead_15" },
+    { "at": -105, "say": "22:15 — due now; every field is still green" },
+    { "at": -104, "say": "22:16 — BREACHED; the chain is the citation; the morning OR window cannot be met as planned" },
     { "at": -20,  "say": "23:40 — the strip: serology_drawn by 22:15 (-1d) · BREACHED 85 min · chain 7" }
   ],
 

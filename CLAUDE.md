@@ -9,7 +9,9 @@ The reference implementation you are porting is `C:\REGISTRAR\floor\closure.py` 
 ## Hard rules
 
 1. **C or C++ only, OS APIs only, one static exe.** No runtime, no vendored code. `user32`,
-   `gdi32`, `gdiplus`, `crypt32` (DPAPI), `bcrypt` (SHA-256), `shell32`. Nothing else.
+   `gdi32`, `gdiplus`, `crypt32` (DPAPI, base64), `bcrypt` (SHA-256 for file, rule-set and
+   sign-out hashes), `shell32`. Nothing else. The tape chain is BLAKE2b-256 because that is what
+   the reference `core/tape.py` uses; it is written from RFC 7693 in `src/hash.cpp`, not vendored.
 2. **No network stack, by construction.** The exe must not import `ws2_32`, `wininet`,
    `winhttp`, `urlmon`, `dnsapi`, or `iphlpapi`. `build.bat` runs `dumpbin /imports` and fails
    the build if any appears. This is a receipt for "nothing leaves your building"; keep it
